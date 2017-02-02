@@ -4,3 +4,6 @@ top_all.txt
 .python-version
 #Backups
 .~*
+old_datasets/
+#server side
+bfd.php_files/
