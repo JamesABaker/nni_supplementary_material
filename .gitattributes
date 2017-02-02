@@ -1,0 +1,11 @@
+ExpAll90%ID_list.txt filter=lfs diff=lfs merge=lfs -text
+top_all.txt filter=lfs diff=lfs merge=lfs -text
+UniArch.txt filter=lfs diff=lfs merge=lfs -text
+UniBacilli.txt filter=lfs diff=lfs merge=lfs -text
+UniCress.txt filter=lfs diff=lfs merge=lfs -text
+UniEcoli.txt filter=lfs diff=lfs merge=lfs -text
+UniER.txt filter=lfs diff=lfs merge=lfs -text
+UniFungi.txt filter=lfs diff=lfs merge=lfs -text
+UniGolgi.txt filter=lfs diff=lfs merge=lfs -text
+UniHuman.txt filter=lfs diff=lfs merge=lfs -text
+UniPM.txt filter=lfs diff=lfs merge=lfs -text
