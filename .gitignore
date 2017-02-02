@@ -1,1 +1,6 @@
-top_all.txt 
+# possible copyright issues for redistribution
+top_all.txt
+# pyenv
+.python-version
+#Backups
+.~*
