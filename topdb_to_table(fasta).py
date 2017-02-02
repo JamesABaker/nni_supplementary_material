@@ -20,6 +20,11 @@ for flank_length in flank_lengths:
 
         output_filename = "TopDB_%s_flanklength_flankclash%s.csv" % (
             flank_length, str(flank_clash_amendment_status))
+        half_flanks_output_filename = input_file.replace(
+            ".txt", "_%s_flanklength_flankclash%s_only_half_flanks.csv" % (flank_length, str(flank_clash_amendment_status)))
+        full_flanks_output_filename = input_file.replace(
+            ".txt", "_%s_flanklength_flankclash%s_only_full_flanks.csv" % (flank_length, str(flank_clash_amendment_status)))
+
         number_of_records = 0
         number_of_records_correct_length = 0
 
@@ -215,6 +220,20 @@ for flank_length in flank_lengths:
                                             my_file.write(",")
                                         my_file.write("\n")
                                     number_of_records_correct_length = number_of_records_correct_length + 1
+
+                                    if len(C_terminal_flank) == flank_length and len(N_terminal_flank) == flank_length:
+                                        with open(full_flanks_output_filename, 'a') as my_file:
+                                            for i in tmh_record:
+                                                my_file.write(str(i))
+                                                my_file.write(",")
+                                            my_file.write("\n")
+
+                                    if len(C_terminal_flank) >= (flank_length / 2) and len(N_terminal_flank) >= (flank_length / 2):
+                                        with open(half_flanks_output_filename, 'a') as my_file:
+                                            for i in tmh_record:
+                                                my_file.write(str(i))
+                                                my_file.write(",")
+                                            my_file.write("\n")
 
                                     if total_tmd_count == 1:
                                         number_of_records_correct_length_single = number_of_records_correct_length_single + 1

@@ -319,8 +319,6 @@ for input_file in input_filenames:
                                     # Now we see if the flanks are either half
                                     # length, or full length.
                                     if len(C_terminal_flank) == max_flank_size and len(N_terminal_flank) == max_flank_size:
-                                        full_flanks_output_filename = input_file.replace(
-                                            ".txt", "_%s_flanklength_flankclash%s_only_full_flanks.csv" % (flank_length, str(flank_clash_amendment_status)))
                                         with open(full_flanks_output_filename, 'a') as my_file:
                                             for i in tmh_record:
                                                 my_file.write(str(i))
@@ -328,8 +326,6 @@ for input_file in input_filenames:
                                             my_file.write("\n")
 
                                     if len(C_terminal_flank) >= max_flank_size / 2 and len(N_terminal_flank) >= max_flank_size / 2:
-                                        half_flanks_output_filename = input_file.replace(
-                                            ".txt", "_%s_flanklength_flankclash%s_only_half_flanks.csv" % (flank_length, str(flank_clash_amendment_status)))
                                         with open(half_flanks_output_filename, 'a') as my_file:
                                             for i in tmh_record:
                                                 my_file.write(str(i))
