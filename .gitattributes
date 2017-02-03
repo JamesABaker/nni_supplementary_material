@@ -11,3 +11,4 @@ UniHuman.txt filter=lfs diff=lfs merge=lfs -text
 UniPM.txt filter=lfs diff=lfs merge=lfs -text
 download/Database.zip filter=lfs diff=lfs merge=lfs -text
 download/Datasets.zip filter=lfs diff=lfs merge=lfs -text
+download filter=lfs diff=lfs merge=lfs -text
