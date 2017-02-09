@@ -4,15 +4,15 @@
 
 These scripts can be used to mine database files from uniprot and TopDB into transmembrane and perform sequence distribution data analysis.
 
-This release is not designed for redistribution or reapplication but is provided as is. If you are having trouble running the scripts, or if there is something unclear, do feel free to [open an issue on GitHub](https://github.com/jbkr/nni_supplementary_material/issues/new) or contact the authors directly.
+_Disclaimer_: This release is not designed for redistribution, or reapplication as production software, but is provided as is. If you are having trouble running the scripts, or if there is something unclear, do feel free to [open an issue on GitHub](https://github.com/jbkr/nni_supplementary_material/issues/new) or contact the authors directly.
 
 ### Download.
 
 The downloaded zip includes the original files downloaded from the respective databases and the Uniprot non-redundant datasets. The zip also contains the python scripts used to generate the datasets, tables, figures, as well as the parsed .csv files of each dataset. Within the .csv files is the ID for the respective databasse, the full protein sequence, the TMH sequences, the flank sequences (each file for each dataset has a different cut-off flank length: 5, 10 or 20), the number of TMHs in the given protein, and the orientation of the TMH.
 
- - [Click here to download the datasets](datasets.zip).
- - [Click here to download the scripts](scripts.zip).
- - [Click here to download the original database files from Uniprot](database.zip).
+ - [Click here to download the datasets](downloads/datasets.zip).
+ - [Click here to download the scripts](downloads/scripts.zip).
+ - [Click here to download the original database files from Uniprot](downloads/database.zip).
  - [Click here to visit the TopDB site to download the database](http://topdb.enzim.hu/?m=download&mid=2).
 
 <!-- This needs updating -->
@@ -30,8 +30,11 @@ UniPM.txt
 ```
 Scripts includes:
 ```
-TBC
+Uniprot_to_table.py
+topdb_to_table(fasta).py
+Figure1_2_3_4_6.py
 ```
+The scripts folder also includes various text files to assist the scripts.
 
 Datasets.zip includes:
 ```
@@ -237,17 +240,12 @@ top_all_5_flanklength_flankclashTrue_only_half_flanks.csv
 
 ### Features.
 
-- The scripts can be used to mine Uniprot files into tables that have easier to handle information about their transmembrane domain and neighboring residue sequences in csv format.
-
-  - Detects annotation for transmembrane regions.
-  - Detects annotation for orientation.
-  - Detects annotation for singlepass and multipass transmembrane proteins.
-  - Detects for overlapping residues in the flanks and evenly reassigns the flanking residues to the respective TMH.
+- The scripts can be used to mine Uniprot files into tables that have easier to handle information about their transmembrane domain and neighbouring residue sequences in csv format.
 
 ### Usage.
 
-2. These scripts require Biopython, numpy, and [python 2.7](https://www.python.org/downloads/). Run `sudo easy_install pip; sudo pip install numpy; sudo pip install Biopython` and enter your password as appropriate. If you come across any errors it is probably because python is not installed in the default locations, or a package has already been installed before you ran these commands.
+1. These scripts require Biopython, numpy, and [python 2.7](https://www.python.org/downloads/). Run `sudo easy_install pip; sudo pip install numpy; sudo pip install Biopython` and enter your password as appropriate. If you come across any errors it is probably because python is not installed in the default locations, or a package has already been installed before you ran these commands.
 
-3. Run the database builder scripts using `python topdb_to_table(fasta).py` and `python Uniprot_to_table.py`. These generate csv files from the database files.
+2. Run the database builder scripts using `python topdb_to_table(fasta).py` and `python Uniprot_to_table.py`. These generate csv files from the database files.
 
-4. Use `TableX.py` or `FigureX.py`on the files you want to generate figures for by changing the variable `list_of_files` to a list of the names of .csv files. Some may require moving vectors and numbers outputted into a graph producing software like Excel.  Please refer to the paper for a more detailed explanation for what each figure and table represents about the data.
+3. Use `TableX.py` or `FigureX.py`on the files you want to generate figures for by changing the variable `list_of_files` to a list of the names of .csv files. Some may require moving vectors and numbers outputted into a graph producing software like Excel.  Please refer to the paper for a more detailed explanation for what each figure and table represents about the data.
