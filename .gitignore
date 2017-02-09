@@ -7,3 +7,5 @@ top_all.txt
 old_datasets/
 #server side
 bfd.php_files/
+#Generated PDFs should be ignored
+tables_and_figures/*.pdf
