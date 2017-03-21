@@ -40,7 +40,7 @@ for flank_length in flank_lengths:
                                     for s in representative_id_codes])
 
         with open(output_filename, 'w') as my_file:
-            my_file.write("TOPDB ID, N terminal inside/outside, tmh start location, tmh end location, full protein sequence, tmh sequence, N flank sequence, C flank sequence, transmembrane helix sequential number, number of transmembrane helices in protein, experiment\n")
+            my_file.write(",TOPDB ID, N terminal inside/outside, tmh start location, tmh end location, full protein sequence, tmh sequence, N flank sequence, C flank sequence, transmembrane helix sequential number, number of transmembrane helices in protein, experiment\n")
         my_file.closed
 
         short_TMDs = 0
@@ -223,6 +223,7 @@ for flank_length in flank_lengths:
 
                                     if len(C_terminal_flank) == flank_length and len(N_terminal_flank) == flank_length:
                                         with open(full_flanks_output_filename, 'a') as my_file:
+                                            my_file.write(",")
                                             for i in tmh_record:
                                                 my_file.write(str(i))
                                                 my_file.write(",")

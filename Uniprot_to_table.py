@@ -110,6 +110,7 @@ for input_file in input_filenames:
                             unknown = unknown + 1
                             print id_of_record, "had an unknown position TMH."
                         else:
+
                             full_sequence = str(record.seq)
                             tmh_start = int(f.location.start)
                             tmh_stop = int(f.location.end)
@@ -120,8 +121,9 @@ for input_file in input_filenames:
                             # script will compensate for the clash and stop
                             # checking to see if there are additional
                             # clashes at that flank. This is reset per TMH.
-                            C_terminal_flank_clash = False
-                            N_terminal_flank_clash = False
+
+                            flank1_length = reliable_flank_length
+                            flank2_length = reliable_flank_length
 
                             # We iterate through each feature in the record, to
                             # assertain if there are any clashes.
@@ -141,46 +143,55 @@ for input_file in input_filenames:
                                     # Let's first check if the N terminus of this
                                     # feature comes after the C terminus of the
                                     # feature we're logging.
-                                    if C_terminal_flank_clash is not True:
-                                        if each_features.location.start > f.location.end:
-                                            # Is the feature and the N terminal flank starting within the flank
-                                            # of the C terminus of the feature that
-                                            # we're logging?
-                                            if (each_features.location.start - reliable_flank_length) < (f.location.end + reliable_flank_length)and flank_clash_amendment_status == True:
-                                                if str(each_features.type) in avoid_features:
-                                                    # There will be a clash/overlapping
-                                                    # of transmembrane flank lengths at
-                                                    # the C flank.
-                                                    max_flank_size = each_features.location.start - f.location.end
-                                                    flank2_length = max_flank_size / 2
-                                                    C_terminal_flank_clash = True
-                                                else:
-                                                    # There is a feature, but it's not
-                                                    # a transmembrane region, so
-                                                    # flanking regions won't be double
-                                                    # counted
-                                                    flank2_length = reliable_flank_length
+                                    # if C_terminal_flank_clash is not True:
+                                    if each_features.location.start > f.location.end:
+                                        # Is the feature and the N terminal flank starting within the flank
+                                        # of the C terminus of the feature that
+                                        # we're logging?
+                                        if (each_features.location.start - reliable_flank_length) < (f.location.end + reliable_flank_length)and flank_clash_amendment_status == True:
+                                            if str(each_features.type) in avoid_features:
+
+                                                # There will be a clash/overlapping
+                                                # of transmembrane flank lengths at
+                                                # the C flank.
+                                                if each_features.type == "INTRAMEM":
+                                                    print_intramem_details = True
+                                                max_flank_size = each_features.location.start - f.location.end
+                                                new_flank2_length = max_flank_size / 2
+
+                                                if new_flank2_length < flank2_length:
+                                                    flank2_length = new_flank2_length
+
                                             else:
-                                                flank2_length = reliable_flank_length
+                                                # There is a feature, but it's not
+                                                # a transmembrane region, so
+                                                # flanking regions won't be double
+                                                # counted
+                                                pass
                                         else:
-                                            flank2_length = reliable_flank_length
+                                            pass
+                                    else:
+                                        pass
 
                                     # Now we will check the same as above, however
                                     # for features that the C terminas falls before
                                     # the feature being logged N-terminus
-                                    if N_terminal_flank_clash is not True:
-                                        if each_features.location.end < f.location.start:
-                                            if (each_features.location.end + reliable_flank_length) > (f.location.start - reliable_flank_length) and flank_clash_amendment_status == True:
-                                                if str(each_features.type) in avoid_features:
-                                                    max_flank_size = f.location.start - each_features.location.end
-                                                    flank1_length = max_flank_size / 2
-                                                    N_terminal_flank_clash = True
-                                                else:
-                                                    flank1_length = reliable_flank_length
+                                    if each_features.location.end < f.location.start:
+                                        if (each_features.location.end + reliable_flank_length) > (f.location.start - reliable_flank_length) and flank_clash_amendment_status == True:
+                                            if str(each_features.type) in avoid_features:
+                                                max_flank_size = f.location.start - each_features.location.end
+                                                new_flank1_length = max_flank_size / 2
+                                                if new_flank1_length < flank1_length:
+                                                    flank1_length = new_flank1_length
+
+                                                if each_features.type == "INTRAMEM":
+                                                    print_intramem_details = True
                                             else:
-                                                flank1_length = reliable_flank_length
+                                                pass
                                         else:
-                                            flank1_length = reliable_flank_length
+                                            pass
+                                    else:
+                                        pass
 
                                     # Now we will amend the flank length incase it
                                     # exceeds the maximum protein length, or the
@@ -348,29 +359,29 @@ for input_file in input_filenames:
                                 pass
                             else:
                                 pass
-        # General information regarding the output file useful as a log.
-        print input_file, ", flank_clash_amendment_status:", flank_clash_amendment_status
-        print "Number of TMHs in dataset:", number_of_records
-        print "Number of TMHs after dumping incorrect lengths:", number_of_records_correct_length
-        print "Mean number of tmhs in multipass proteins:", np.mean(list_of_multipass_total_tmh_counts)
-        print "S.D of tmhs in multipass proteins:", np.std(list_of_multipass_total_tmh_counts)
-        print "Records"
-        print number_of_records
-        print number_of_records_correct_length
-        print "Single-pass"
-        print "Total:", number_of_records_single
-        print "After length exclusion:", number_of_records_correct_length_single
-        print "Multi-pass"
-        print "Total:", number_of_records_multi
-        print "After length exclusion:", number_of_records_correct_length_multi
+    # General information regarding the output file useful as a log.
+    print input_file, ", flank_clash_amendment_status:", flank_clash_amendment_status
+    print "Number of TMHs in dataset:", number_of_records
+    print "Number of TMHs after dumping incorrect lengths:", number_of_records_correct_length
+    print "Mean number of tmhs in multipass proteins:", np.mean(list_of_multipass_total_tmh_counts)
+    print "S.D of tmhs in multipass proteins:", np.std(list_of_multipass_total_tmh_counts)
+    print "Records"
+    print number_of_records
+    print number_of_records_correct_length
+    print "Single-pass"
+    print "Total:", number_of_records_single
+    print "After length exclusion:", number_of_records_correct_length_single
+    print "Multi-pass"
+    print "Total:", number_of_records_multi
+    print "After length exclusion:", number_of_records_correct_length_multi
 
-        exclusion_ids_output_filename = input_file.replace(
-            ".txt", "_%s_flanklength_flankclash%s_logged_lengthexclusionIDs.txt" % (flank_length, str(flank_clash_amendment_status)))
+    exclusion_ids_output_filename = input_file.replace(
+        ".txt", "_%s_flanklength_flankclash%s_logged_lengthexclusionIDs.txt" % (flank_length, str(flank_clash_amendment_status)))
+    with open(exclusion_ids_output_filename, 'a') as my_file:
+        my_file.write("# ID_HelixNumber\n")
+    my_file.closed
+    for item in length_excluded_tmds:
         with open(exclusion_ids_output_filename, 'a') as my_file:
-            my_file.write("# ID_HelixNumber\n")
+            my_file.write(item)
+            my_file.write("\n")
         my_file.closed
-        for item in length_excluded_tmds:
-            with open(exclusion_ids_output_filename, 'a') as my_file:
-                my_file.write(item)
-                my_file.write("\n")
-            my_file.closed

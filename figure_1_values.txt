@@ -1,0 +1,105 @@
+FIGURE 1
+UniHuman_5_flanklength_flankclashTrue.csv singlepass 1705 records.
+I 4877
+V 6333
+L 10608
+F 3102
+C 1755
+M 1207
+A 4911
+G 3650
+T 2346
+S 3046
+W 1089
+Y 1441
+P 1441
+H 675
+E 666
+Q 950
+D 560
+N 685
+K 1597
+R 2299
+Total amino acids, 53238
+
+
+
+FIGURE 1
+UniHuman_5_flanklength_flankclashTrue.csv multipass 12353 records.
+I 32303
+V 36187
+L 59700
+F 30459
+C 10231
+M 12660
+A 30286
+G 22546
+T 21275
+S 25945
+W 7109
+Y 15988
+P 12971
+H 6451
+E 7338
+Q 7735
+D 7251
+N 10350
+K 8972
+R 11545
+Total amino acids, 377302
+
+
+/usr/local/lib/python2.7/dist-packages/numpy/core/_methods.py:59: RuntimeWarning: Mean of empty slice.
+  warnings.warn("Mean of empty slice.", RuntimeWarning)
+/usr/local/lib/python2.7/dist-packages/numpy/core/_methods.py:70: RuntimeWarning: invalid value encountered in double_scalars
+  ret = ret.dtype.type(ret / rcount)
+
+FIGURE 1
+TopDB_5_flanklength_flankclashTrue.csv singlepass 1544 records.
+I 4680
+V 5545
+L 8724
+F 2897
+C 1259
+M 1206
+A 4398
+G 3392
+T 2139
+S 2651
+W 1062
+Y 1449
+P 1158
+H 578
+E 582
+Q 828
+D 520
+N 732
+K 1683
+R 2085
+Total amino acids, 47568
+
+
+
+FIGURE 1
+TopDB_5_flanklength_flankclashTrue.csv multipass 15563 records.
+I 42893
+V 41774
+L 68201
+F 36559
+C 8220
+M 15480
+A 42163
+G 35114
+T 24593
+S 29393
+W 10874
+Y 17324
+P 14925
+H 6121
+E 8156
+Q 9219
+D 7722
+N 11996
+K 11066
+R 12907
+Total amino acids, 454700
