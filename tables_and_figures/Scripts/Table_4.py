@@ -73,16 +73,16 @@ for file in list_of_files:
             correction_number = 0
 
             tmh_length=len(tmh_sequence)
-            N_leaflet=tmh_sequence[0:int((tmh_length/2))]
-            C_leaflet=tmh_sequence[-int((tmh_length/2)):]
+            n_leaflet=tmh_sequence[0:int((tmh_length/2))]
+            c_leaflet=tmh_sequence[-int((tmh_length/2)):]
 
             if "Outside" in str(n_terminal_start):
-                inside_leaflet = C_leaflet[::-1]
-                outside_leaflet = N_leaflet[::-1]
+                inside_leaflet = c_leaflet[::-1]
+                outside_leaflet = n_leaflet[::-1]
 
             if "Inside" in str(n_terminal_start):
-                inside_leaflet = N_leaflet
-                outside_leaflet = C_leaflet
+                inside_leaflet = n_leaflet
+                outside_leaflet = c_leaflet
 
 
 

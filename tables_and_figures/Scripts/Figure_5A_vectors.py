@@ -92,15 +92,15 @@ for scale in list_of_scales:
                 pipe = subprocess.Popen(["perl", scale, var])
                 pipe.wait()
 
-                with open('KDcalc_out.txt', 'rb') as totalKD:
-                    lines = totalKD.readlines()
-                    KD_line = lines[4]
-                    totalKD.close()
+                with open('KDcalc_out.txt', 'rb') as totalkd:
+                    lines = totalkd.readlines()
+                    kd_line = lines[4]
+                    totalkd.close()
 
-                    KD = str(KD_line)
+                    kd = str(kd_line)
 
-                    KD = re.sub("[KD=]", '', KD)
-                    result = KD
+                    kd = re.sub("[KD=]", '', kd)
+                    result = kd
                     result = re.sub("  ", ', ', result)
                     result = re.sub(", , , ,", '', result)
                     result = re.sub(" , ", '', result)

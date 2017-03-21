@@ -587,8 +587,11 @@ for file in list_of_files:
 
         # These functions describe the difference lines that will be drawn.
 
-        # Hashed line for the background value.
+        #
         def background_level(background_value, colour):
+            '''
+            Returns the values for the hashed line for the background value.
+            '''
             max_sequence_length = len(background_value)
             values_for_noise_inside = background_value[
                 int((max_sequence_length / 2) - 30):int((max_sequence_length / 2) - 25)]

@@ -97,15 +97,15 @@ for file in list_of_files:
     multi_total_inside_flanks = ""
     multi_total_outside_flanks = ""
 
-    total_E_residues_inside_singlepass = 0
-    total_E_residues_outside_singlepass = 0
-    total_D_residues_inside_singlepass = 0
-    total_D_residues_outside_singlepass = 0
+    total_e_residues_inside_singlepass = 0
+    total_e_residues_outside_singlepass = 0
+    total_d_residues_inside_singlepass = 0
+    total_d_residues_outside_singlepass = 0
 
-    total_E_residues_inside_multipass = 0
-    total_E_residues_outside_multipass = 0
-    total_D_residues_inside_multipass = 0
-    total_D_residues_outside_multipass = 0
+    total_e_residues_inside_multipass = 0
+    total_e_residues_outside_multipass = 0
+    total_d_residues_inside_multipass = 0
+    total_d_residues_outside_multipass = 0
 
     with open(file) as inputfile:
         temp = inputfile.read().splitlines()
