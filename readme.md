@@ -1,24 +1,22 @@
-### Supplementary files to methods and results section.
+# Supplementary files to methods and results section.
 
-[![Code Issues](https://www.quantifiedcode.com/api/v1/project/88786feb18614cb2889cb24d2070f85e/badge.svg)](https://www.quantifiedcode.com/app/project/88786feb18614cb2889cb24d2070f85e)
+## About.
 
-### About.
-
-These scripts can be used to mine database files from uniprot and TopDB into transmembrane and perform sequence distribution data analysis.
+These scripts can be used to mine database files from UniProt and TopDB into transmembrane and perform sequence distribution data analysis.
 
 _Disclaimer_: This release is not designed for redistribution, or reapplication as production software, but is provided as is. If you are having trouble running the scripts, or if there is something unclear, do feel free to contact the authors directly.
 
-### Download.
+## Download.
 
 The downloaded zip includes the original files downloaded from the respective databases and the Uniprot non-redundant datasets. The zip also contains the python scripts used to generate the datasets, tables, figures, as well as the parsed .csv files of each dataset. Within the .csv files is the ID for the respective databases, the full protein sequence, the TMH sequences, the flank sequences (each file for each dataset has a different cut-off flank length: 5, 10 or 20), the number of TMHs in the given protein, and the orientation of the TMH.
 
- - [Click here to download the datasets](downloads/datasets.zip).
- - [Click here to download the scripts](downloads/scripts.zip).
- - [Click here to download the original database files from Uniprot](downloads/database.zip).
- - [Click here to visit the TopDB site to download the database](http://topdb.enzim.hu/?m=download&mid=2).
+- [Click here to download the datasets](downloads/datasets.zip).
+- [Click here to download the scripts](downloads/scripts.zip).
+- [Click here to download the original database files from Uniprot](downloads/database.zip).
+- [Click here to visit the TopDB site to download the database](http://topdb.enzim.hu/?m=download&mid=2).
 
-<!-- This needs updating -->
-Database.zip includes:
+<!-- This needs updating --> Database.zip includes:
+
 ```
 UniArch.txt
 UniBacilli.txt
@@ -30,23 +28,29 @@ UniGolgi.txt
 UniHuman.txt
 UniPM.txt
 ```
+
 Scripts includes:
+
 ```
 Figure_1_2_3_4_6.py
-Figure_5A.py
-Figure_5B.py
+Figure_5A_vectors.py
+Figure_5B_vectors.py
 Figure_7.py
 Figure_S1.py
 Figure_S4.py
 Table_1.py
-Table_2_new_averages.py
-Table_2.py
+Table_2_central_alignment.py
+Table_2_database_defined.py
 Table_4.py
 Table_S1.py
+topdb_fasta_dataset_generator.py
+Uniprot_dataset_generator.py
 ```
+
 The scripts folder also includes various text files to assist the scripts.
 
 Datasets.zip includes:
+
 ```
 TopDB_5_flanklength_flankclashFalse_only_full_flanks.csv
 TopDB_5_flanklength_flankclashFalse_only_half_flanks.csv
@@ -230,16 +234,22 @@ UniPM_20_flanklength_flankclashTrue_only_half_flanks.csv
 UniPM_20_flanklength_flankclashTrue.csv
 ```
 
+
+
+## Usage.
+
 ### Features.
 
-- The scripts can be used to mine Uniprot files and the Fasta TopDB file into tables that have easier to handle information about their transmembrane domain and neighboring residue sequences in csv format.
+The scripts can be used to mine UniProt files and the Fasta TopDB file into tables that have easier to handle information about their transmembrane domain and neighbouring residue sequences in csv format.
 
-### Usage.
+Additional scripts that were used to analyse the data are included, however, these are provided as and may not work out of the box since they rely on more modules.
+
+### Generating datasets.
 
 1. These scripts require Biopython, numpy, and [python 2.7](https://www.python.org/downloads/). Run `sudo easy_install pip; sudo pip install numpy; sudo pip install Biopython` and enter your password as appropriate. If you come across any errors it is probably because python is not installed in the default locations, or a package has already been installed before you ran these commands.
 
-2. Run the database builder scripts using `python topdb_to_table(fasta).py` and `python Uniprot_to_table.py`. These generate csv files from the database files.
+2. Run the database generator scripts using `python topdb_fasta_dataset_generator.py` and `python Uniprot_dataset_generator.py`. These generate csv files from the database files.
 
-### Key.
+### Dataset file name key.
 
-The csv file names include the original database file, the flank length, Flankclash (true does not allow overlap, false allows overlap), and an additional condition if the only TMH records include flanks of either half, or full length.
+The csv file names include the original database file, the flank length, Flankclash (true does not allow overlap, false allows overlap), and an additional condition if the only TMH records include flanks of either half, or full length. For example, `UniPM_20_flanklength_flankclashTrue_only_half_flanks.csv` is from the UniPM database file (`UniPM`), uses a maximum flank length of 20 residues (`20_flanklength`), does not allow flanks to overlap (`FlankclashTrue`), and only includes records that have at least 10 residues in both flanks (`only_half_flanks`).

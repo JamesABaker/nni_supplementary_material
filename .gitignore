@@ -9,3 +9,5 @@ old_datasets/
 bfd.php_files/
 #Generated PDFs should be ignored
 tables_and_figures/*.pdf
+#Ignoring the temporary excel and text files
+temp/
