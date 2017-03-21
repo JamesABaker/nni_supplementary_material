@@ -133,16 +133,16 @@ def single_or_multi(type_of_protein, total_tmd_count, record_id):
     elif type_of_protein == "multipass" and total_tmd_count > 1:
         return True
     elif type_of_protein == "simple" and total_tmd_count == 1:
-        with open('List_of_Simple_IDs.txt') as f:
-            simple_ID_list = f.read().splitlines()
-            if record_id in simple_ID_list:
+        with open('List_of_Simple_ids.txt') as f:
+            simple_id_list = f.read().splitlines()
+            if record_id in simple_id_list:
                 return True
             else:
                 return False
     elif type_of_protein == "complex" and total_tmd_count == 1:
-        with open('List_of_Complex_IDs.txt') as f:
-            complex_ID_list = f.read().splitlines()
-            if record_id in complex_ID_list:
+        with open('List_of_Complex_ids.txt') as f:
+            complex_id_list = f.read().splitlines()
+            if record_id in complex_id_list:
                 return True
             else:
                 return False
@@ -157,19 +157,22 @@ def single_or_multi(type_of_protein, total_tmd_count, record_id):
 # align the vectors to.
 
 
-def compensation_checker(tmh_sequence, N_flank_sequence, n_terminal_start, halfway_value_for_alignment):
+def compensation_checker(tmh_sequence, n_flank_sequence, n_terminal_start, halfway_value_for_alignment):
+    '''
+    Returns how many residues are needed to align the TMH to the central 0th residue.
+    '''
     if n_terminal_start == "Inside":
-        if len(N_flank_sequence) + len(tmh_sequence) / 2 > halfway_value_for_alignment:
+        if len(n_flank_sequence) + len(tmh_sequence) / 2 > halfway_value_for_alignment:
             # the 0.5 is added in the case of an odd number.
             # Int(float) rounds the float down. This would
             # cause problems later since the full TMD lengths
             # may go below the 0th vector position
             halfway_value_for_alignment = int(
-                len(N_flank_sequence) + len(tmh_sequence) / 2 + 0.5)
+                len(n_flank_sequence) + len(tmh_sequence) / 2 + 0.5)
     elif n_terminal_start == "Outside":
-        if len(C_flank_sequence) + len(tmh_sequence) / 2 > halfway_value_for_alignment:
+        if len(c_flank_sequence) + len(tmh_sequence) / 2 > halfway_value_for_alignment:
             halfway_value_for_alignment = int(
-                len(C_flank_sequence) + len(tmh_sequence) / 2 + 0.5)
+                len(c_flank_sequence) + len(tmh_sequence) / 2 + 0.5)
     else:
         halfway_value_for_alignment = halfway_value_for_alignment
     return halfway_value_for_alignment
@@ -179,21 +182,24 @@ def compensation_checker(tmh_sequence, N_flank_sequence, n_terminal_start, halfw
 # abundances.
 
 
-def oriented_sequence(n_terminal_start, N_flank_sequence, tmh_sequence, C_flank_sequence, halfway_value_for_alignment):
+def oriented_sequence(n_terminal_start, n_flank_sequence, tmh_sequence, c_flank_sequence, halfway_value_for_alignment):
+    '''
+    Returns the sequence oriented from inside to outside rather than N to C.
+    '''
     if "Outside" in str(n_terminal_start):
         tmh_unaltered_sequence = str(
-            N_flank_sequence) + str(tmh_sequence) + str(C_flank_sequence)
+            n_flank_sequence) + str(tmh_sequence) + str(c_flank_sequence)
         tmh_reversed_sequence = tmh_unaltered_sequence[::-1]
         correction_number = halfway_value_for_alignment - \
-            ((len(tmh_sequence) / 2) + len(C_flank_sequence))
+            ((len(tmh_sequence) / 2) + len(c_flank_sequence))
         # +1 used since python is counting from 0, however I'm not sure entirely that it's needed here.
         tmh_segment = "J" * (int(correction_number) + 1)
         tmh_segment = tmh_segment + tmh_reversed_sequence
     elif "Inside" in str(n_terminal_start):
         tmh_unaltered_sequence = str(
-            N_flank_sequence) + str(tmh_sequence) + str(C_flank_sequence)
+            n_flank_sequence) + str(tmh_sequence) + str(c_flank_sequence)
         correction_number = halfway_value_for_alignment - \
-            ((len(tmh_sequence) / 2) + len(N_flank_sequence))
+            ((len(tmh_sequence) / 2) + len(n_flank_sequence))
         tmh_segment = "J" * (int(correction_number) + 1)
         tmh_segment = tmh_segment + tmh_unaltered_sequence
     return tmh_segment
@@ -202,6 +208,9 @@ def oriented_sequence(n_terminal_start, N_flank_sequence, tmh_sequence, C_flank_
 
 
 def clean_list_output(list):
+    '''
+    Returns a clean string from a list.
+    '''
     list = ''.join(str(list))
     list = list.replace("[", "")
     list = list.replace("]", "")
@@ -211,13 +220,12 @@ def clean_list_output(list):
 
 
 def vectors_for_neg30_to_pos30(amino_acid_tally, halfway_value_for_alignment):
-    # print "\n\nRAW VECTORS from positions -30 to 30."
-    # Positions are recounted in case the last time it was called was a
-    # previous dataset.
-
-    # We also need to check this belongs to a longer flanking region
-    # dataset, otherwise we don't need to print this for the bahadur
-    # calculations.
+    '''
+    Returns the vectors from -30 to +30 and the totals in those slices for each residue. This is no longer used.
+    Positions are recounted in case the last time it was called was a previous dataset.
+    We also need to check this belongs to a longer flanking region dataset, otherwise we don't need to print this for the bahadur calculations.
+    '''
+    print "\n\nRAW VECTORS from positions -30 to 30."
     if len(amino_acid_tally[1][4]) > 60:
         sequence_position = []
         # Getting the position coordinates
@@ -269,13 +277,14 @@ def vectors_for_neg30_to_pos30(amino_acid_tally, halfway_value_for_alignment):
 
 
 def normalised_vectors_for_neg30_to_pos30(amino_acid_tally, halfway_value_for_alignment):
-    # print "\n\nRAW VECTORS from positions -30 to 30."
-    # Positions are recounted in case the last time it was called was a
-    # previous dataset.
+    '''
+    Returns the normalised vectors from -30 to +30. This is no longer used since we switched to -20 to +20 and process the data externally for figure 4. The principal is the same.
+    Positions are recounted in case the last time it was called was a previous dataset.
+    We also need to check this belongs to a longer flanking region dataset, otherwise we don't need to print this for the bahadur calculations.
+    '''
 
-    # We also need to check this belongs to a longer flanking region
-    # dataset, otherwise we don't need to print this for the bahadur
-    # calculations.
+    print "\n\nRAW VECTORS from positions -30 to 30."
+
     if len(amino_acid_tally[1][4]) > 60:
         sequence_position = []
         # Getting the position coordinates
@@ -371,15 +380,15 @@ for file in list_of_files:
                 tmh_end_location = int(entry[4])
                 sequence = str(entry[5])
                 tmh_sequence = str(entry[6])
-                N_flank_sequence = str(entry[7])
-                C_flank_sequence = str(entry[8])
+                n_flank_sequence = str(entry[7])
+                c_flank_sequence = str(entry[8])
                 tmh_number = int(entry[9])
                 total_tmd_count = int(entry[10])
 
                 # Check that it mathces the type
                 if single_or_multi(type_of_protein, total_tmd_count, id) == True:
                     halfway_value_for_alignment = compensation_checker(
-                        tmh_sequence, N_flank_sequence, n_terminal_start, halfway_value_for_alignment)
+                        tmh_sequence, n_flank_sequence, n_terminal_start, halfway_value_for_alignment)
 
         # halfway_value_for_alignment now holds the number needed to align to 0
 
@@ -405,15 +414,15 @@ for file in list_of_files:
                     tmh_end_location = int(entry[4])
                     sequence = str(entry[5])
                     tmh_sequence = str(entry[6])
-                    N_flank_sequence = str(entry[7])
-                    C_flank_sequence = str(entry[8])
+                    n_flank_sequence = str(entry[7])
+                    c_flank_sequence = str(entry[8])
                     tmh_number = int(entry[9])
                     total_tmd_count = int(entry[10])
 
                     if single_or_multi(type_of_protein, total_tmd_count, id) == True:
                         record_count = record_count + 1
                         sequence_to_measure = oriented_sequence(
-                            n_terminal_start, N_flank_sequence, tmh_sequence, C_flank_sequence, halfway_value_for_alignment)
+                            n_terminal_start, n_flank_sequence, tmh_sequence, c_flank_sequence, halfway_value_for_alignment)
 
                         for position, an_amino_acid in enumerate(sequence_to_measure):
                             if an_amino_acid == amino_acid:

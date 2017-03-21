@@ -61,8 +61,8 @@ for scale in list_of_scales:
                 tmh_end_location = entry[4]
                 sequence = entry[5]
                 tmh_sequence = entry[6]
-                N_flank_sequence = entry[7]
-                C_flank_sequence = entry[8]
+                n_flank_sequence = entry[7]
+                c_flank_sequence = entry[8]
                 tmh_number = entry[9]
                 total_tmd_count = entry[10]
 
@@ -70,17 +70,17 @@ for scale in list_of_scales:
 
                 if "Outside" in str(n_terminal_start):
                     tmh_unaltered_sequence = str(
-                        N_flank_sequence) + str(tmh_sequence) + str(C_flank_sequence)
+                        n_flank_sequence) + str(tmh_sequence) + str(c_flank_sequence)
                     tmh_reversed_sequence = tmh_unaltered_sequence[::-1]
                     correction_number = (
-                        (maximum_tmd_length - len(tmh_sequence)) / 2 + (20 - len(C_flank_sequence)))
+                        (maximum_tmd_length - len(tmh_sequence)) / 2 + (20 - len(c_flank_sequence)))
                     tmh_segment = tmh_reversed_sequence
 
                 if "Inside" in str(n_terminal_start):
                     tmh_unaltered_sequence = str(
-                        N_flank_sequence) + str(tmh_sequence) + str(C_flank_sequence)
+                        n_flank_sequence) + str(tmh_sequence) + str(c_flank_sequence)
                     correction_number = (
-                        (maximum_tmd_length - len(tmh_sequence)) / 2 + (20 - len(N_flank_sequence)))
+                        (maximum_tmd_length - len(tmh_sequence)) / 2 + (20 - len(n_flank_sequence)))
                     tmh_segment = tmh_unaltered_sequence
 
                 sequence = tmh_segment

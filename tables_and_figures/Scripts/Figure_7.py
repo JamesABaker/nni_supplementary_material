@@ -19,11 +19,11 @@ list_of_files = [#"TopDB_10_flanklength_flankclashFalse.csv",
                  ]
 
 
-with open('List_of_Complex_IDs.txt') as f:
-    complex_ID_list = f.read().splitlines()
+with open('List_of_Complex_ids.txt') as f:
+    complex_id_list = f.read().splitlines()
 
-with open('List_of_Simple_IDs.txt') as f:
-    simple_ID_list = f.read().splitlines()
+with open('List_of_Simple_ids.txt') as f:
+    simple_id_list = f.read().splitlines()
 
 list_of_residues = [["C"], ["R"], ["K"], ["R","K"], ["D"], ["E"], ["D","E"], ["Y"], ["W"], ["L"]]
 
@@ -46,8 +46,6 @@ for file in list_of_files:
 
         maximum_tmd_length = 0
         maximum_segment_length =0
-        maxCflank_length=0
-        maxNflank_length=0
         maxflank_length=0
         that_length = 0
 
@@ -65,15 +63,15 @@ for file in list_of_files:
                 tmh_end_location = entry[4]
                 sequence = entry[5]
                 tmh_sequence = entry[6]
-                N_flank_sequence = entry[7]
-                C_flank_sequence = entry[8]
+                n_flank_sequence = entry[7]
+                c_flank_sequence = entry[8]
                 tmh_number = entry[9]
                 total_tmd_count = entry[10]
 
                 if "Outside" in str(n_terminal_start):
-                    inner_flank_length = len(C_flank_sequence)
+                    inner_flank_length = len(c_flank_sequence)
                 if "Inside" in str(n_terminal_start):
-                    inner_flank_length = len(N_flank_sequence)
+                    inner_flank_length = len(n_flank_sequence)
                 tmd_length=len(tmh_sequence)
 
                 if tmd_length > maximum_tmd_length_for_alignment:
@@ -81,19 +79,19 @@ for file in list_of_files:
                 if inner_flank_length > maximum_inner_flank_length:
                     maximum_inner_flank_length = inner_flank_length
 
-                this_tmh_and_flank_length = len(tmh_sequence)+len(N_flank_sequence)+len(C_flank_sequence)
+                this_tmh_and_flank_length = len(tmh_sequence)+len(n_flank_sequence)+len(c_flank_sequence)
                 if this_tmh_and_flank_length > maximum_segment_length:
-                    maximum_length = len(tmh_sequence)+len(N_flank_sequence)+len(C_flank_sequence)
+                    maximum_length = len(tmh_sequence)+len(n_flank_sequence)+len(c_flank_sequence)
                     maximum_tmd_length = len(tmh_sequence)
 
                     if "Outside" in str(n_terminal_start):
-                        tmh_unaltered_sequence = str(N_flank_sequence) + str(tmh_sequence) + str(C_flank_sequence)
+                        tmh_unaltered_sequence = str(n_flank_sequence) + str(tmh_sequence) + str(c_flank_sequence)
                         tmh_reversed_sequence = tmh_unaltered_sequence[::-1]
-                        maxflank_length = len(C_flank_sequence)
+                        maxflank_length = len(c_flank_sequence)
 
                     if "Inside" in str(n_terminal_start):
-                        tmh_unaltered_sequence = str(N_flank_sequence) + str(tmh_sequence) + str(C_flank_sequence)
-                        maxflank_length = len(N_flank_sequence)
+                        tmh_unaltered_sequence = str(n_flank_sequence) + str(tmh_sequence) + str(c_flank_sequence)
+                        maxflank_length = len(n_flank_sequence)
 
                     maximum_segment_length = this_tmh_and_flank_length
 
@@ -120,31 +118,31 @@ for file in list_of_files:
                 tmh_end_location = entry[4]
                 sequence = entry[5]
                 tmh_sequence = entry[6]
-                N_flank_sequence = entry[7]
-                C_flank_sequence = entry[8]
+                n_flank_sequence = entry[7]
+                c_flank_sequence = entry[8]
                 tmh_number = entry[9]
                 total_tmd_count = entry[10]
 
                 correction_number = 0
 
                 if "Outside" in str(n_terminal_start):
-                    tmh_unaltered_sequence = str(N_flank_sequence) + str(tmh_sequence) + str(C_flank_sequence)
+                    tmh_unaltered_sequence = str(n_flank_sequence) + str(tmh_sequence) + str(c_flank_sequence)
                     tmh_reversed_sequence = tmh_unaltered_sequence[::-1]
-                    correction_number = ((maximum_tmd_length_for_alignment/2) + maximum_inner_flank_length) - ((len(tmh_sequence)/ 2) + len(C_flank_sequence))
+                    correction_number = ((maximum_tmd_length_for_alignment/2) + maximum_inner_flank_length) - ((len(tmh_sequence)/ 2) + len(c_flank_sequence))
                     tmh_segment = "J" * (int(correction_number) + 1)
                     tmh_segment = tmh_segment + tmh_reversed_sequence
 
                 if "Inside" in str(n_terminal_start):
-                    tmh_unaltered_sequence = str(N_flank_sequence) + str(tmh_sequence) + str(C_flank_sequence)
-                    correction_number = ((maximum_tmd_length_for_alignment/2) + maximum_inner_flank_length) - ((len(tmh_sequence)/ 2) + len(N_flank_sequence))
+                    tmh_unaltered_sequence = str(n_flank_sequence) + str(tmh_sequence) + str(c_flank_sequence)
+                    correction_number = ((maximum_tmd_length_for_alignment/2) + maximum_inner_flank_length) - ((len(tmh_sequence)/ 2) + len(n_flank_sequence))
                     tmh_segment = "J" * (int(correction_number) + 1)
                     tmh_segment = tmh_segment + tmh_unaltered_sequence
                 list_of_tmh_segments.append(tmh_segment)
 
-                if int(total_tmd_count) == 1 and str(id) in simple_ID_list:
+                if int(total_tmd_count) == 1 and str(id) in simple_id_list:
                     list_of_simple_singlepass_tmh_segments.append(tmh_segment)
 
-                if int(total_tmd_count) == 1 and str(id) in complex_ID_list:
+                if int(total_tmd_count) == 1 and str(id) in complex_id_list:
                     list_of_complex_singlepass_tmh_segments.append(tmh_segment)
 
                 if int(total_tmd_count) > 1:

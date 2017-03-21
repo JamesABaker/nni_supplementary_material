@@ -6,7 +6,7 @@ import pylab as P
 import random
 
 print "Negative residue statistics.\n"
-print "File, Single-pass (SP) helices, SP negative residues inside, SP negative residues outside, SP t-statistic, SP P-value, Multi-pass (MP) IDs, MP helices total, MP average helices per ID, MP std of average helices per ID, MP negative residues inside, MP negative residues outside,, MP t-statstic, MP P-value"
+print "File, Single-pass (SP) helices, SP negative residues inside, SP negative residues outside, SP t-statistic, SP P-value, Multi-pass (MP) ids, MP helices total, MP average helices per id, MP std of average helices per id, MP negative residues inside, MP negative residues outside,, MP t-statstic, MP P-value"
 
 
 list_of_files = [
@@ -90,7 +90,7 @@ for file in list_of_files:
     list_of_total_residues_singlepass_inside_negative = []
     list_of_total_residues_singlepass_outside_negative = []
     results = []
-    list_of_multipass_IDs = []
+    list_of_multipass_ids = []
     list_of_multipass_helix_counts = []
     single_total_inside_flanks = ""
     single_total_outside_flanks = ""

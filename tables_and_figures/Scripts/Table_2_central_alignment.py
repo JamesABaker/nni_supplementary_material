@@ -6,7 +6,7 @@ import pylab as P
 import random
 
 print "Negative residue statistics.\n"
-print "File, Single-pass (singlepass) helices, singlepass negative residues inside, singlepass negative residues outside, singlepass t-statistic, singlepass P-value, Multi-pass (multipass) IDs, multipass helices total, multipass average helices per ID, multipass std of average helices per ID, multipass negative residues inside, multipass negative residues outside,, multipass t-statstic, multipass P-value"
+print "File, Single-pass (singlepass) helices, singlepass negative residues inside, singlepass negative residues outside, singlepass t-statistic, singlepass P-value, Multi-pass (multipass) ids, multipass helices total, multipass average helices per id, multipass std of average helices per id, multipass negative residues inside, multipass negative residues outside,, multipass t-statstic, multipass P-value"
 
 
 list_of_files = [
@@ -38,7 +38,7 @@ for file in list_of_files:
     list_of_total_residues_singlepass_inside_negative = []
     list_of_total_residues_singlepass_outside_negative = []
     results = []
-    list_of_multipass_IDs = []
+    list_of_multipass_ids = []
     list_of_multipass_helix_counts = []
     single_total_inside_flanks = ""
     single_total_outside_flanks = ""
@@ -86,6 +86,9 @@ for file in list_of_files:
 
 
             def inside_limit_positions(tmh_string, inside_flank_sequence_string):
+                '''
+                This returns the positions to obtain the inside flank sensitively to avoid scrambling the slice with a below 0 slice index.
+                '''
                 # The half way point can be quickly found by adding length of
                 # the "left-hand"/inside flank to half the length of the TMH.
                 # The +1 insures that when dividing by 2 that odd and even total length numbers both end up at "position 0" rather than -1 or 0.

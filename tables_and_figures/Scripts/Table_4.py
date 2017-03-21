@@ -37,7 +37,7 @@ for file in list_of_files:
     list_of_singlepass_tmh_segments = []
     list_of_multipass_tmh_segments = []
     results = []
-    list_of_multipass_IDs = []
+    list_of_multipass_ids = []
     list_of_multipass_helix_counts = []
 
     single_total_leucines_leaflets = 0
@@ -66,8 +66,8 @@ for file in list_of_files:
             tmh_end_location = entry[4]
             sequence = entry[5]
             tmh_sequence = entry[6]
-            N_flank_sequence = entry[7]
-            C_flank_sequence = entry[8]
+            n_flank_sequence = entry[7]
+            c_flank_sequence = entry[8]
             tmh_number = entry[9]
             total_tmd_count = int(entry[10])
             correction_number = 0
