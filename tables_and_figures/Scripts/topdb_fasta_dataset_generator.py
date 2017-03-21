@@ -43,8 +43,8 @@ for flank_length in flank_lengths:
             my_file.write(",TOPDB ID, N terminal inside/outside, tmh start location, tmh end location, full protein sequence, tmh sequence, N flank sequence, C flank sequence, transmembrane helix sequential number, number of transmembrane helices in protein, experiment\n")
         my_file.closed
 
-        short_TMDs = 0
-        long_TMDs = 0
+        short_tmds = 0
+        long_tmds = 0
         tmd_counter = 0
 
         # The input file is parsed 3 lines at a time. The first line contains the
@@ -178,18 +178,18 @@ for flank_length in flank_lengths:
                                 # 0-based indexing.
 
                                 if tmh_start - 1 - int(flank1_length) >= 0:
-                                    N_terminal_flank = (
+                                    n_terminal_flank = (
                                         sequence[tmh_start - 1 - int(flank1_length):tmh_start - 1])
 
                                 elif tmh_start - 1 - int(flank1_length) <= 0:
-                                    N_terminal_flank = (
+                                    n_terminal_flank = (
                                         sequence[0:tmh_start - 1])
 
                                 if tmh_stop - 1 + int(flank2_length) > len(sequence):
-                                    C_terminal_flank = (
+                                    c_terminal_flank = (
                                         sequence[tmh_stop - 1:int(len(sequence))])
                                 else:
-                                    C_terminal_flank = (
+                                    c_terminal_flank = (
                                         sequence[tmh_stop - 1:(tmh_stop - 1 + int(flank2_length))])
 
                                 tmh_sequence = sequence[
@@ -203,7 +203,7 @@ for flank_length in flank_lengths:
                                 # used according to the way python slices in
                                 # order to aquire the correct residue.
                                 tmh_record = [id_of_record, n_terminal_start, tmh_start, tmh_stop - 1,
-                                              full_sequence, tmh_sequence, N_terminal_flank, C_terminal_flank, tmd_count, total_tmd_count]
+                                              full_sequence, tmh_sequence, n_terminal_flank, c_terminal_flank, tmd_count, total_tmd_count]
 
                                 number_of_records = number_of_records + 1
 
@@ -221,7 +221,7 @@ for flank_length in flank_lengths:
                                         my_file.write("\n")
                                     number_of_records_correct_length = number_of_records_correct_length + 1
 
-                                    if len(C_terminal_flank) == flank_length and len(N_terminal_flank) == flank_length:
+                                    if len(c_terminal_flank) == flank_length and len(n_terminal_flank) == flank_length:
                                         with open(full_flanks_output_filename, 'a') as my_file:
                                             my_file.write(",")
                                             for i in tmh_record:
@@ -229,7 +229,7 @@ for flank_length in flank_lengths:
                                                 my_file.write(",")
                                             my_file.write("\n")
 
-                                    if len(C_terminal_flank) >= (flank_length / 2) and len(N_terminal_flank) >= (flank_length / 2):
+                                    if len(c_terminal_flank) >= (flank_length / 2) and len(n_terminal_flank) >= (flank_length / 2):
                                         with open(half_flanks_output_filename, 'a') as my_file:
                                             for i in tmh_record:
                                                 my_file.write(str(i))

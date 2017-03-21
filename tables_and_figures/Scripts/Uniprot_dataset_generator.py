@@ -198,16 +198,16 @@ for input_file in input_filenames:
                                     # 0th sequence item (the start of the
                                     # sequence)
                                     if (f.location.start - int(flank1_length)) >= 0:
-                                        N_terminal_flank = str(
+                                        n_terminal_flank = str(
                                             record.seq[(f.location.start - int(flank1_length)):(f.location.start)])
                                     elif (f.location.start - int(flank1_length)) < 0:
-                                        N_terminal_flank = str(
+                                        n_terminal_flank = str(
                                             record.seq[0:(f.location.start)])
                                     if (f.location.end + int(flank2_length)) > len(record.seq):
-                                        C_terminal_flank = str(
+                                        c_terminal_flank = str(
                                             record.seq[(f.location.end):(int(len(record.seq)))])
                                     else:
-                                        C_terminal_flank = str(
+                                        c_terminal_flank = str(
                                             record.seq[(f.location.end):(f.location.end + int(flank2_length))])
 
                             # Now, the orientation is determined for all features
@@ -310,7 +310,7 @@ for input_file in input_filenames:
                             if "Inside" in n_terminal_start or "Outside" in n_terminal_start:
                                 #+1s are used since slices originally call how many steps to iterate rather than the sequence postion. This matches the Uniprot sequence numbering
                                 tmh_record = [name_of_record, id_of_record, n_terminal_start, tmh_start + 1, tmh_stop,
-                                              full_sequence, tmh_sequence, N_terminal_flank, C_terminal_flank, tmd_count, total_tmd_count]
+                                              full_sequence, tmh_sequence, n_terminal_flank, c_terminal_flank, tmd_count, total_tmd_count]
 
                                 number_of_records = number_of_records + 1
 
@@ -329,14 +329,14 @@ for input_file in input_filenames:
 
                                     # Now we see if the flanks are either half
                                     # length, or full length.
-                                    if len(C_terminal_flank) == max_flank_size and len(N_terminal_flank) == max_flank_size:
+                                    if len(c_terminal_flank) == max_flank_size and len(n_terminal_flank) == max_flank_size:
                                         with open(full_flanks_output_filename, 'a') as my_file:
                                             for i in tmh_record:
                                                 my_file.write(str(i))
                                                 my_file.write(",")
                                             my_file.write("\n")
 
-                                    if len(C_terminal_flank) >= max_flank_size / 2 and len(N_terminal_flank) >= max_flank_size / 2:
+                                    if len(c_terminal_flank) >= max_flank_size / 2 and len(n_terminal_flank) >= max_flank_size / 2:
                                         with open(half_flanks_output_filename, 'a') as my_file:
                                             for i in tmh_record:
                                                 my_file.write(str(i))
