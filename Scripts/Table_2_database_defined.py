@@ -130,8 +130,8 @@ for file in list_of_files:
             tmh_end_location = entry[4]
             sequence = entry[5]
             tmh_sequence = entry[6]
-            N_flank_sequence = entry[7]
-            C_flank_sequence = entry[8]
+            n_flank_sequence = entry[7]
+            c_flank_sequence = entry[8]
             tmh_number = int(entry[9])
             total_tmd_count = int(entry[10])
             correction_number = 0
@@ -140,20 +140,20 @@ for file in list_of_files:
                 tmh_unaltered_sequence = str(tmh_sequence)
                 tmh_reversed_sequence = tmh_unaltered_sequence[::-1]
                 tmh_segment = tmh_reversed_sequence
-                C_unaltered_sequence = str(C_flank_sequence)
-                C_reversed_sequence = C_unaltered_sequence[::-1]
-                inside_segment = C_reversed_sequence
-                N_unaltered_sequence = str(N_flank_sequence)
-                N_reversed_sequence = N_unaltered_sequence[::-1]
-                outside_segment = N_reversed_sequence
+                c_unaltered_sequence = str(c_flank_sequence)
+                c_reversed_sequence = c_unaltered_sequence[::-1]
+                inside_segment = c_reversed_sequence
+                n_unaltered_sequence = str(n_flank_sequence)
+                n_reversed_sequence = n_unaltered_sequence[::-1]
+                outside_segment = n_reversed_sequence
 
             if "Inside" in str(n_terminal_start):
-                tmh_unaltered_sequence = str(N_flank_sequence)
+                tmh_unaltered_sequence = str(n_flank_sequence)
                 tmh_segment = tmh_unaltered_sequence
-                C_unaltered_sequence = str(C_flank_sequence)
-                outside_segment = C_unaltered_sequence
-                N_unaltered_sequence = str(N_flank_sequence)
-                inside_segment = N_unaltered_sequence
+                c_unaltered_sequence = str(c_flank_sequence)
+                outside_segment = c_unaltered_sequence
+                n_unaltered_sequence = str(n_flank_sequence)
+                inside_segment = n_unaltered_sequence
 
             total_negative_residues_inside = inside_segment.count(
                 "D") + inside_segment.count("E")

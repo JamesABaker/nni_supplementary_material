@@ -106,8 +106,8 @@ for input_file in input_filenames:
                             # script will compensate for the clash and stop
                             # checking to see if there are additional
                             # clashes at that flank. This is reset per TMH.
-                            C_terminal_flank_clash = False
-                            N_terminal_flank_clash = False
+                            c_terminal_flank_clash = False
+                            n_terminal_flank_clash = False
 
                             # We iterate through each feature in the record, to
                             # assertain if there are any clashes.
@@ -144,7 +144,7 @@ for input_file in input_filenames:
                                                 new_flank2_length = max_flank_size / 2
                                                 if new_flank2_length < flank2_length:
                                                     flank2_length = new_flank2_length
-                                                C_terminal_flank_clash = True
+                                                c_terminal_flank_clash = True
                                             else:
                                                 # There is a feature, but it's not
                                                 # a transmembrane region, so
@@ -167,7 +167,7 @@ for input_file in input_filenames:
                                                 new_flank1_length = max_flank_size / 2
                                                 if new_flank1_length < flank1_length:
                                                     flank1_length = new_flank1_length
-                                                N_terminal_flank_clash = True
+                                                n_terminal_flank_clash = True
                                                 if each_features.type == "INTRAMEM":
                                                     print_intramem_details = True
 
@@ -183,16 +183,16 @@ for input_file in input_filenames:
                                     # 0th sequence item (the start of the
                                     # sequence)
                                     if (f.location.start - int(flank1_length)) >= 0:
-                                        N_terminal_flank = str(
+                                        n_terminal_flank = str(
                                             record.seq[(f.location.start - int(flank1_length)):(f.location.start)])
                                     elif (f.location.start - int(flank1_length)) < 0:
-                                        N_terminal_flank = str(
+                                        n_terminal_flank = str(
                                             record.seq[0:(f.location.start)])
                                     if (f.location.end + int(flank2_length)) > len(record.seq):
-                                        C_terminal_flank = str(
+                                        c_terminal_flank = str(
                                             record.seq[(f.location.end):(int(len(record.seq)))])
                                     else:
-                                        C_terminal_flank = str(
+                                        c_terminal_flank = str(
                                             record.seq[(f.location.end):(f.location.end + int(flank2_length))])
 
                             # Now, the orientation is determined for all features
@@ -295,7 +295,7 @@ for input_file in input_filenames:
                             if "Inside" in n_terminal_start or "Outside" in n_terminal_start:
                                 #+1s are used since slices originally call how many steps to iterate rather than the sequence postion. This matches the Uniprot sequence numbering
                                 tmh_record = [name_of_record, id_of_record, n_terminal_start, tmh_start + 1, tmh_stop,
-                                              full_sequence, tmh_sequence, N_terminal_flank, C_terminal_flank, tmd_count, total_tmd_count]
+                                              full_sequence, tmh_sequence, n_terminal_flank, c_terminal_flank, tmd_count, total_tmd_count]
 
                                 number_of_records = number_of_records + 1
 
